@@ -4,6 +4,10 @@ function output = findFace(oriImg, tlow, thigh)
 
 %get size
 [m, n, ~] = size(oriImg);
+top = 1;
+left = 1;
+down = m;
+right = n;
 
 mask = detectSkin(oriImg, tlow, thigh);
 
@@ -79,7 +83,7 @@ cut_face = faceimg(top:down,left:right,:);
 cut_mask = mask(top:down,left:right,:);
 
 
-faceline = drawline(cut_face, 2, 5, 0.25, 0.5);
+faceline = drawline(cut_face, 1, 3, 0.25, 0.5);
 
 
 [p, q] = size(cut_mask);
@@ -107,3 +111,14 @@ end
 
 output = pad;
 
+
+
+%% Lena 2 parameters
+%{
+faceline = drawline(cut_face, 1, 3, 0.25, 0.5);
+
+
+[p, q] = size(cut_mask);
+[t,l,h,w] = findMouth(cut_mask);
+mouthline = drawline(cut_face(t-5 : h+5, l-5 : w+5, :), 1, 3, 0.2, 0.5);
+%}
