@@ -5,13 +5,21 @@ function output = findFace(oriImg, tlow, thigh)
 %get size
 [m, n, ~] = size(oriImg);
 
+
+%做膚色檢查 先慮出皮膚色
 mask = detectSkin(oriImg, tlow, thigh);
 
 %figure;imshow(mask);
+
+%填滿臉中的洞洞
 fmask = imfill(mask);
 %figure;imshow(fmask);
 
 
+%去掉耳朵  效果不佳QQQ
+%掃描每個row 把間格小的白色去掉
+%ex :   row : 00011001111100010
+%       變成: 00000001111100000
 for i = 1 : m
     chk_s = [0, 0];
     chk_e = [0, 0];
@@ -47,11 +55,13 @@ for i = 1 : m
 end
 %figure;imshow(fmask);
 
+%轉type 做成3d的 弄到原圖上
 ui8_mask = uint8(fmask/255);
 mask_3d = repmat(ui8_mask, [1, 1, 3]);
 faceimg = oriImg .* mask_3d;
 figure;imshow(faceimg);
 
+%裁切
 flag = 0;
 for i=1:m
     if((sum(fmask(i,:)) > 0)&&(flag == 0))
@@ -76,8 +86,12 @@ mask = mask & fmask;
 cut_face = faceimg(top:down,left:right,:);
 cut_mask = mask(top:down,left:right,:);
 
+%畫臉 + 眼睛的框框
+%眼睛還沒切出來額外做
 %face
 faceline = drawline(cut_face, 2, 5, 0.25, 0.5);
+
+%畫嘴吧框框
 %mouth
 [p, q] = size(cut_mask);
 [t,l,h,w] = findMouth(cut_mask);
@@ -93,5 +107,6 @@ for i = 0 : (h-t+10)
     end
 end
 
+%臉 + 眼睛 + 嘴巴框框合起來
 output = mouth + faceline;
 

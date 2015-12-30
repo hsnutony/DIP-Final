@@ -1,5 +1,9 @@
 function eye = chkeye(bImage,h0,w0,h, w)
 
+
+%大概偵測區域中有沒有眼睛
+%效果普普QQ
+
 part = zeros(h, w);
 
 for i = h0:(h0+h)
@@ -11,8 +15,10 @@ for i = h0:(h0+h)
         end
     end
 end
+
+%檢查鄰居 8代表 上下左右 左上左下右上右下
 [~,num] = bwlabel(part,8);
-% 如果?域中有??以上的矩形???有眼睛
+
 if num < 2
     eye = 0;
 else

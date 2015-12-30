@@ -1,10 +1,19 @@
 function  [t,l,h,w] = findMouth(mask)
 
+%找嘴巴 效果不佳QQQ
+%其實只是找臉區塊中
+%最大黑色區塊
+%如果臉上有白色反光
+%嘴巴又很小 就GGG
+
+
 %figure, imshow(oriImg)
 
 mask = (mask - 1) .* (-1);
 figure;imshow(mask );
 
+
+%找區塊標記
 [L,num]=bwlabel(mask,8);
 area=zeros(1,num+1);%面積
 zhonghengbi=zeros(1,num+1);%比例

@@ -1,4 +1,8 @@
 function [L,kk]=findlimit(L)
+
+
+%抄來的
+
 %l為已分類有序矩陣
 %kk為特征區域的序號
 
@@ -11,6 +15,8 @@ end
 
 %[m,n]=size(J);
 
+
+%找鄰居 將鄰居標成同一個區塊
 [L,num]=bwlabel(J,8);
 area=zeros(1,num+1);%面積
 zhonghengbi=zeros(1,num+1);%比例
@@ -31,6 +37,9 @@ for k=0:num
      end%防止出現單條垂直線的情況
      area(k+1)=re1(k+1,1)*re1(k+1,2);
 end
+
+%檢查符合人臉的區塊
+%判斷比例 面積 有沒有像眼睛的東西
 
 j=1;
 for i=1:num+1

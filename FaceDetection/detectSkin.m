@@ -1,12 +1,15 @@
 function output = detectSkin(oriImg, tlow, thigh)
 
+%抄來的
+
+
 %get size
 [m, n, ~] = size(oriImg);
 %color transform
 cbcr = rgb2ycbcr(oriImg);
 cbcr3 = cbcr(:, :, 3);
 
-%thredhold    140 to 160
+%thredhold  看參數
 for i = 1 : m
     for j = 1 : n
         if((cbcr3(i, j) > tlow) && (cbcr3(i, j) < thigh))
@@ -28,6 +31,8 @@ for i=3:m-2
     end
 end
 
+
+%檢查符合人臉特真的區塊
 [l,kk]=findlimit(cbcr3);
 mask=l;
 for i=1:m
