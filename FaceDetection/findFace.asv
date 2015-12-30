@@ -97,13 +97,7 @@ for i = 0 : (h-t+10)
 end
 
 faceline = mouth + faceline;
-pad = zeros(m, n);
+pad = z
 
-for i = 0 : (down - top)
-    for j = 0 : (right - left)
-            pad(top + i, left + j) = faceline(i+1, j+1);
-    end
-end
-
-output = pad;
+output = ;
 

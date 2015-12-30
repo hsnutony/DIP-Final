@@ -2,15 +2,14 @@ clear;
 close all;
 
 ton1 = imread('gg3be0.JPG');
-ton2 = imread('test1.jpg');
+ton2 = imread('wang3.jpg');
 
 %H = fspecial('motion',20,45);
 %ton2 = imfilter(ton1, H, 'replicate');
 
+figure;imshow(ton1);
 
-%讀圖找臉der框框
-%參數是找皮膚色用的 是照片而定
-ton_face= findFace(ton2, 144, 160);
+ton_face= findFace(ton1, 140, 170);
 figure;imshow(ton_face);
 
 
