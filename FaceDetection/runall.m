@@ -1,21 +1,28 @@
 clear;
 close all;
 
+
+face = imread('../face_deblurring_code_v1/test_image/HEBE_4.jpg');
+H = fspecial('motion',15,15);
+blurimg = imfilter(face, H, 'replicate');
+
+figure, imshow(blurimg)
+%{
 %ton1 = imread('gg3be0.JPG');
 %ton2 = imread('wang3.jpg');
-blurry_Test = imread('../../face_deblurring_code_v1/test_image/Lena_2.jpg');
+
+blurry_Test = imread('../face_deblurring_code_v1/test_image/Lena_2.jpg');
 test = imcrop(blurry_Test);
-ttmp = imread('../../face_deblurring_code_v1/test_image/Lena_Noise.png');
-[m n z] = size(ttmp);
+ttmp = imread('../face_deblurring_code_v1/test_image/Lena_Noise.png');
+[m, n, z] = size(ttmp);
 I = imresize(test, [m n]);
-    
-%H = fspecial('motion',20,45);
-%ton2 = imfilter(ton1, H, 'replicate');
 
 %figure;imshow(ton1);
 
 ton_face= findFace(I, 125, 150);
 figure;imshow(ton_face);
+%}
+imwrite(blurimg,'test_image/HEBE_blur4.jpg');
 
 
 %{

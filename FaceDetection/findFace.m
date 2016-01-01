@@ -1,4 +1,4 @@
-function output = findFace(oriImg, tlow, thigh)
+function [output, cut_nbface, cut_mask] = findFace(oriImg, tlow, thigh)
 
 %figure, imshow(oriImg)
 
@@ -55,7 +55,7 @@ end
 ui8_mask = uint8(fmask/255);
 mask_3d = repmat(ui8_mask, [1, 1, 3]);
 faceimg = oriImg .* mask_3d;
-figure;imshow(faceimg);
+%figure;imshow(faceimg);
 
 
 flag = 0;
@@ -78,25 +78,28 @@ for i=1:n
             flag = 0;
     end
 end
-mask = mask & fmask;
-cut_face = faceimg(top:down,left:right,:);
+mask=mask & fmask;
+
+cut_face = oriImg(top:down,left:right,:);
+cut_nbface = faceimg(top:down,left:right,:);
 cut_mask = mask(top:down,left:right,:);
 
-
+%move to findMask.m
+%{
 faceline = drawline(cut_face, 1, 3, 0.25, 0.5);
 
 
 [p, q] = size(cut_mask);
 [t,l,h,w] = findMouth(cut_mask);
-mouthline = drawline(cut_face(t-5 : h+5, l-5 : w+5, :), 1, 3, 0.2, 0.5);
+mouthline = drawline(cut_face(t : h, l : w, :), 1, 3, 0.2, 0.5);
 
-figure;imshow(mouthline);
+%figure;imshow(mouthline);
 
 mouth = zeros(p, q);
-for i = 0 : (h-t+10)
-    for j = 0 : (w-l+10)
-            mouth(i+t-5, j+l-5) = mouthline(i+1, j+1);
-            faceline(i+t-5, j+l-5) = 0;
+for i = 0 : (h-t)
+    for j = 0 : (w-l)
+            mouth(i+t, j+l) = mouthline(i+1, j+1);
+            faceline(i+t, j+l) = 0;
     end
 end
 
@@ -108,8 +111,9 @@ for i = 0 : (down - top)
             pad(top + i, left + j) = faceline(i+1, j+1);
     end
 end
+%}
 
-output = pad;
+output = cut_face;
 
 
 

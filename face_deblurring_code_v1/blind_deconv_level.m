@@ -37,6 +37,7 @@ for iter = 1:opts.xk_iter
   %% Solve for I using Algorithm 1 in our paper
   % deblurImg = L0Restoration(blurImg, fliplr(flipud(k)), lam_reg, 2.0);
   % original / blurryfish changes
+
   deblurImg = L0Restoration(blurImg, fliplr(flipud(k)), lam_reg, 9.5);
   figure(1); 
   subplot(131); imshow(deblurImg,[]);
@@ -50,4 +51,5 @@ for iter = 1:opts.xk_iter
   latent_y(:,end) = 0;  latent_y(end,:) = 0;
   Ix = latent_x./norm(latent_x(:));
   Iy = latent_y./norm(latent_y(:));
+
 end;

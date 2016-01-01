@@ -15,6 +15,7 @@ if opts.gamma_correct~=1.0
     y = y.^opts.gamma_correct;
 end
 %% Convert "Mask" into binary image by OTSU method
+%QAQ may not effective
 t_level = graythresh(Mask);
 Mask = double(im2bw(Mask,t_level));
 %figure; imshow(Mask);
@@ -46,7 +47,7 @@ dy = [-1 0; 1 0];
   %figure(11); imshow([imedge1 imedge2],[]);
   %% 
   %------The main procedure (See Algorithm 2 in our paper)------%
-  [interim_latent kernel] = blind_deconv_level(y, yx, yy, truthx, truthy, opts);
+  [interim_latent, kernel] = blind_deconv_level(y, yx, yy, truthx, truthy, opts);
   
   %% Center the kernel
    kernel = adjust_psf_center(kernel);
