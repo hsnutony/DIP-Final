@@ -6,16 +6,11 @@ function output = findMask(cut_face, cut_mask)
 faceline = drawline(cut_face, 2, 3, 0.25, 0.5);
 
 [p, q] = size(cut_mask);
-
-%find mouth region
-%same method as findFace
 [t,l,h,w] = findMouth(cut_mask);
-%arg can be modify
 mouthline = drawline(cut_face(t : h, l : w, :), 1, 3, 0.2, 0.5);
 
 %figure;imshow(mouthline);
 
-%fit size
 mouth = zeros(p, q);
 for i = 0 : (h-t)
     for j = 0 : (w-l)
@@ -24,7 +19,6 @@ for i = 0 : (h-t)
     end
 end
 
-%combine face and mouth edge line 
 faceline = mouth + faceline;
 
 output = faceline;

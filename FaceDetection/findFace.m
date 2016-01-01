@@ -9,13 +9,16 @@ left = 1;
 down = m;
 right = n;
 
+%detect skin color region
 mask = detectSkin(oriImg, tlow, thigh);
 
 %figure;imshow(mask);
 
+%fill empty region
 fmask = imfill(mask);
 %figure;imshow(fmask);
 
+%cut off some trivial region
 for i = 1 : m
     chk_s = [0, 0];
     chk_e = [0, 0];
@@ -52,12 +55,14 @@ end
 %figure;imshow(fmask);
 
 
+%make 3d mask filte on origin img
 ui8_mask = uint8(fmask/255);
 mask_3d = repmat(ui8_mask, [1, 1, 3]);
 faceimg = oriImg .* mask_3d;
 %figure;imshow(faceimg);
 
 
+%fit the face
 flag = 0;
 for i=1:m
     if((sum(fmask(i,:)) > 0)&&(flag == 0))
@@ -80,6 +85,7 @@ for i=1:n
 end
 mask=mask & fmask;
 
+%output
 cut_face = oriImg(top:down,left:right,:);
 cut_nbface = faceimg(top:down,left:right,:);
 cut_mask = mask(top:down,left:right,:);

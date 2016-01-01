@@ -29,11 +29,12 @@ for i=3:m-2
 end
 
 
-%check whether the region like an face
+%check whether the region like  face
 [l,kk]=findlimit(cbcr3);
 mask=l;
 for i=1:m
     for j=1:n
+    %isson is 1 represent it is in face-like region
     if(l(i,j)~=0&&isson(l(i,j),kk)==1)
         mask(i,j)=255;
     else

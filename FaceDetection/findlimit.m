@@ -1,8 +1,5 @@
 function [L,kk]=findlimit(L)
 
-
-%抄來的
-
 %l為已分類有序矩陣
 %kk為特征區域的序號
 

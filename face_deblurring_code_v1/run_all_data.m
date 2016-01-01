@@ -41,6 +41,7 @@ blurred = im2double(blurred);
 
 %get blur img
 blur_img = imread('test_image/hebe_blur.jpg');
+figure, imshow(blur_img)
 %crop face region
 [blur_face, ~, ~] = findFace(blur_img, 140, 160);
 figure, imshow(blur_face)
@@ -57,6 +58,7 @@ blurred = im2double(blurred);
 
 %get reference img
 Matched = imread('test_image/HEBE_3.jpg');
+figure, imshow(Matched)
 %crop face region
 [Matched, cut_nbface, cut_mask] = findFace(Matched, 130, 140);
 figure, imshow(cut_nbface)
@@ -101,9 +103,12 @@ end
 %% Save results
 %eval(sprintf('save  %s kernel deblur' ,mat_outname))
 %imwrite(deblur,img_out_name);
-figure;
+figure,
 subplot(121);imshow(y_color);
 subplot(122);imshow(deblur);
+
+%% unuse
+%{
 compare = imread('test_image/Lena_Sample.png');
 compare = im2double(compare);
 deblur = im2double(deblur);
@@ -111,7 +116,8 @@ deblur = im2double(deblur);
 kw = kernel-min(kernel(:));
 kw = kw./max(kw(:));
 %imwrite(kw,k_out_name);
-
+%}
+%%
 %end
 
 
