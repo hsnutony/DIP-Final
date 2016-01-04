@@ -1,4 +1,4 @@
-function [output, cut_nbface, cut_mask] = findFace(oriImg, tlow, thigh)
+function [range, faceimg, mask] = findFace(oriImg, tlow, thigh)
 
 %figure, imshow(oriImg)
 
@@ -84,11 +84,13 @@ for i=1:n
     end
 end
 mask=mask & fmask;
+%figure, imshow(fmask);
 
 %output
-cut_face = oriImg(top:down,left:right,:);
-cut_nbface = faceimg(top:down,left:right,:);
-cut_mask = mask(top:down,left:right,:);
+range.top = top;
+range.down = down;
+range.left = left;
+range.right = right;
 
 %move to findMask.m
 %{
@@ -119,7 +121,6 @@ for i = 0 : (down - top)
 end
 %}
 
-output = cut_face;
 
 
 

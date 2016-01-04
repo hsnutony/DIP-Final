@@ -6,6 +6,9 @@ function  [t,l,h,w] = findMouth(mask)
 %and the mouth is small
 %it will not work
 
+%cbcr = rgb2ycbcr(mask);
+%cbcr3 = cbcr(:, :, 3);
+
 %init output
 t = 1;
 l = 1;

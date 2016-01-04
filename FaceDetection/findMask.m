@@ -3,7 +3,7 @@ function output = findMask(cut_face, cut_mask)
 %draw the face eyes mouth 's edge line
 
 %arg can be modify
-faceline = drawline(cut_face, 2, 3, 0.25, 0.5);
+faceline = drawline(cut_face, 2, 5, 0.25, 0.5);
 
 [p, q] = size(cut_mask);
 

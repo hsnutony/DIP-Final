@@ -26,9 +26,6 @@ j = 1;
 %%
 
 
-
-%%%%%%%%%% 1/1  input auto-crop %%%%%%%%%%%%%
-
 %% unuse
 %{
 y_color = imread('test_image/Lena_Noise.png');
@@ -39,15 +36,12 @@ blurred = im2double(blurred);
 %}
 %%
 
+%%%%%%%%%% 1/4  input auto-crop upgrape %%%%%%%%%%%%%
+
 %get blur img
-blur_img = imread('test_image/hebe_blur.jpg');
+blur_img = imread('test_image/Lena_blur_1.jpg');
 figure, imshow(blur_img)
-%crop face region
-[blur_face, ~, ~] = findFace(blur_img, 140, 160);
-figure, imshow(blur_face)
-[p, q, ~] = size(blur_face);
-blurred = rgb2gray(blur_face);
-blurred = im2double(blurred);
+
 
 %% unuse
 % for several inputs
@@ -55,21 +49,10 @@ blurred = im2double(blurred);
 %inputMask = sprintf('Lena_Mask%d.png',i);
 %%
 
-
 %get reference img
-Matched = imread('test_image/HEBE_3.jpg');
+Matched = imread('test_image/Lena_2.jpg');
 figure, imshow(Matched)
-%crop face region
-[Matched, cut_nbface, cut_mask] = findFace(Matched, 130, 140);
-figure, imshow(cut_nbface)
-%map size
-Matched = imresize(Matched, [p q]);
-cut_nbface = imresize(cut_nbface, [p q]);
-cut_mask = imresize(cut_mask, [p q]);
-%find Mask
-Mask = findMask(cut_nbface, cut_mask);
-figure, imshow(Matched)
-figure, imshow(Mask)
+
 
 %% unuse
 %Matched = imread('test_image/Lena_Ori.png');
@@ -78,8 +61,8 @@ figure, imshow(Mask)
 %Mask = imread('../FaceDetection/Lena_autoMask.png');
 %%
 
-Mask = im2double(Mask);
-
+%pre process
+[blurred, Matched, Mask] = cropFace(blur_img, Matched);
 
 % initial k_size, xk_iter (do how many times), gamma_correct
 opts.kernel_size  =k_size(j);
